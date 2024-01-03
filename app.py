@@ -25,11 +25,11 @@ class User(db.Model):
 def home():
     users = User.query.all()
     print(users)
-    # value = memcache_client.get("email@email.com")
-    # if value is not None:
-    #     print(value)
-    # else:
-    #     print("Not in cache")
+    value = memcache_client.get("email@email.com")
+    if value is not None:
+        print(value)
+    else:
+        print("Not in cache")
     return render_template("index.html")
 
 @app.route("/login", methods=["GET", "POST"])
