@@ -3,16 +3,17 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable "zone" {
+variable "zones" {
   type = map(any)
   default = {
     a = "us-east-1a"
+    b = "us-east-1b"
   }
 }
 
 variable "myip" {
   type = string
-  default = "myip"
+  default = "myip" # Replace this
 }
 
 variable "amis" {
@@ -25,9 +26,4 @@ variable "amis" {
 variable "user" {
     type = string
     default = "ubuntu"
-}
-
-variable "vpc_id" {
-    type = string
-    default = "myvpc"
 }
