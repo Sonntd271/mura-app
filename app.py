@@ -1,18 +1,26 @@
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
-from pymemcache.client.base import Client as MemcacheClient
+from flask_caching import Cache
+import json
 
-DB_IP = "my-db-ip"
-ELASTICACHE_ENDPOINT = "my-elasticache-endpoint"
+MYSQL_IP = "my-db-ip"
+MEMCACHE_IP = "my-mc-ip"
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqlconnector://admin:admin@{DB_IP}:3306/accounts"
+
+# Configure MySQL
+app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+mysqlconnector://admin:admin@{MYSQL_IP}:3306/accounts"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+# Configure Memcached
+app.config["CACHE_TYPE"] = "memcached"
+app.config["CACHE_MEMCACHED_SERVERS"] = [f"{MEMCACHE_IP}:11211"]
+app.config["CACHE_DEFAULT_TIMEOUT"] = 60 # Cache for 60 seconds
+cache = Cache(app)
 
 Bootstrap5(app)
 db = SQLAlchemy(app)
-memcache_client = MemcacheClient((ELASTICACHE_ENDPOINT, 11211))
 
 
 class User(db.Model):
@@ -25,11 +33,14 @@ class User(db.Model):
 def home():
     users = User.query.all()
     print(users)
-    value = memcache_client.get("email@email.com")
+
+    value = cache.get("temp_user")
+    print(f"Cache value: {value}")
     if value is not None:
         print(value)
     else:
         print("Not in cache")
+
     return render_template("index.html")
 
 @app.route("/login", methods=["GET", "POST"])
@@ -46,7 +57,8 @@ def login():
         db.session.commit()
 
         # Store data in Memcached
-        memcache_client.set(response["email"], response["password"], expire=60)  # Cache for 60 seconds
+        cache_result = cache.set("temp_user", "temp_value") # json.dumps(response)
+        print(f"Cache set result: {cache_result}")
 
         return render_template("login.html", sent=True)
 

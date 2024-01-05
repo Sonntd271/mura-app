@@ -7,7 +7,7 @@ resource "aws_key_pair" "stack-key" {
   public_key = file("../stack-key.pub")
 }
 
-# ---------- ElastiCache ---------- #
+# ---------- Memcache ---------- #
 resource "aws_elasticache_cluster" "memcached" {
   cluster_id = "mura-memcached"
   engine = "memcached"
