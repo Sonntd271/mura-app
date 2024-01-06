@@ -4,8 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_caching import Cache
 import json
 
-MYSQL_IP = "my-db-ip"
-MEMCACHE_IP = "my-mc-ip"
+MYSQL_IP = "172.31.25.174" # Replace this with your DB IP address
+MEMCACHE_IP = "172.31.22.97" # Replace this with your Cache IP address
 
 app = Flask(__name__)
 
@@ -65,4 +65,4 @@ def login():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
