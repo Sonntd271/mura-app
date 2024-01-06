@@ -1,3 +1,3 @@
-output "elasticache-endpoint" {
-  value = aws_elasticache_cluster.memcached.cache_nodes[0].address
+output "kops-public-ip" {
+  value = aws_instance.mura-kops.public_ip
 }

@@ -1,5 +1,11 @@
 #! /bin/bash
 
+HOSTNAME="kops"
+
+# ---------- Change hostname ---------- #
+sudo sh -c 'echo $HOSTNAME > /etc/hostname'
+sudo hostname "$HOSTNAME"
+
 # ---------- Install Kubectl ---------- #
 # Ref: https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 sudo apt-get update -y && sudo apt-get install ca-certificates curl -y
