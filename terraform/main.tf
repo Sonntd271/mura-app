@@ -24,8 +24,32 @@ resource "aws_instance" "mura-kops" {
     destination = "/tmp/kops.sh"
   }
 
+  provisioner "file" {
+    source = "../scripts/memcache.sh"
+    destination = "memcache.sh"
+  }
+
+  provisioner "file" {
+    source = "../scripts/mysql.sh"
+    destination = "mysql.sh"
+  }
+
+  provisioner "file" {
+    source = "../scripts/db-setup.sql"
+    destination = "db-setup.sql"
+  }
+
+  provisioner "file" {
+    source = "../stack-key"
+    destination = "stack-key"
+  }
+
   provisioner "remote-exec" {
     inline = [ 
+      "mkdir manual",
+      "mv *.sh manual",
+      "mv *.sql manual",
+      "mv stack-key manual",
       "sudo chmod u+x /tmp/kops.sh",
       "sudo /tmp/kops.sh",
       "cd"
@@ -67,8 +91,8 @@ resource "aws_instance" "mura-memcache" {
   connection {
     user = var.user
     private_key = file("../stack-key")
-    bastion_host = aws_instance.mura-kops.private_ip
-    host = aws_instance.mura-kops.public_ip
+    bastion_host = aws_instance.mura-kops.public_ip
+    host = self.private_ip
   }
 }
 
@@ -106,7 +130,7 @@ resource "aws_instance" "mura-mysql" {
   connection {
     user = var.user
     private_key = file("../stack-key")
-    bastion_host = aws_instance.mura-kops.private_ip
-    host = aws_instance.mura-kops.public_ip
+    bastion_host = aws_instance.mura-kops.public_ip
+    host = self.private_ip
   }
 }
