@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mura-app
+  labels:
+    app: mura-app
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: mura-app
+  template:
+    metadata:
+      labels:
+        app: mura-app
+    spec:
+      containers:
+      - name: mura-app
+        image: {{ .Values.deployment.imageName }}
+        ports:
+        - name: app-port
+          containerPort: 5000

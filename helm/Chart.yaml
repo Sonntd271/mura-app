@@ -1,0 +1,4 @@
+apiVersion: v2
+name: mura-chart
+description: A Helm chart for deploying Mura application
+version: 0.1.0

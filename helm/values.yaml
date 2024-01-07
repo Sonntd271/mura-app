@@ -1,0 +1,12 @@
+autoscaler:
+  minReplicas: 1
+  maxReplicas: 5
+  cpuTargetUtilization: 50
+
+deployment:
+  replicas: 1
+  imageName: itssonii/mura-app:latest
+
+service:
+  type: LoadBalancer
+  port: 80
