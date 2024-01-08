@@ -1,13 +1,12 @@
 FROM python:3.10-slim
 
-RUN apt-get update -y && apt-get install git -y
+RUN apt-get update -y
 
 # Clone repository into /app
 WORKDIR /app
-RUN git clone https://github.com/Sonntd271/mura-app.git
 
-# Change working directory to mura-app
-WORKDIR /app/mura-app
+# Copy the local copy of the project to the Docker image
+COPY . /app
 
 # Install python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
