@@ -4,8 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_caching import Cache
 import json
 
-MYSQL_IP = "172.31.25.174" # Replace this with your DB IP address
-MEMCACHE_IP = "172.31.22.97" # Replace this with your Cache IP address
+MYSQL_IP = "10.0.3.63" # Replace this with your DB IP address
+MEMCACHE_IP = "10.0.3.206" # Replace this with your Cache IP address
 
 app = Flask(__name__)
 
