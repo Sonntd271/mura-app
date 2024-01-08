@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: mura-autoscaler
@@ -15,4 +15,4 @@ spec:
       name: cpu
       target:
         type: Utilization
-        AverageUtilization: {{ .Values.autoscaler.cpuTargetUtilization }}
+        averageUtilization: {{ .Values.autoscaler.cpuTargetUtilization }}
