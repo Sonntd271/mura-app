@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Available Courses{% endblock %}
+
+{% block content %}
+<div class="tall d-flex align-items-center justify-content-center py-4">
+    <div class="custom-container mx-auto">
+        <h2 class="h4 mt-4 text-center">Available Courses</h2>
+
+        <form action="{{ url_for('select_courses') }}" method="post">
+            <div class="form-check">
+                {% for available_course in all_courses %}
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="selected_courses[]"
+                    value="{{ available_course.id }}"
+                    id="course{{ available_course.id }}"
+                />
+                <label
+                    class="form-check-label"
+                    for="course{{ available_course.id }}"
+                >
+                    {{ available_course.course_name }} - {{ available_course.instructor }} - {{ available_course.time }} </label
+                ><br />
+                {% endfor %}
+            </div>
+
+            <button class="btn btn-primary w-100 py-1 mt-3" type="submit">
+                Select Courses
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

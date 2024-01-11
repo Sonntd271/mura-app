@@ -1,3 +1,15 @@
-.sent-text {
+.flash-text {
     color: tomato;
+}
+
+.tall {
+    height: 60vh;
+}
+
+.custom-input {
+    width: 300px;
+}
+
+.custom-container {
+    width: 800px;
 }

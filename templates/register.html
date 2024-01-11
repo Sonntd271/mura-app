@@ -1,16 +1,16 @@
 {% extends "base.html" %} 
 
-{% block title %}Login{% endblock %} 
+{% block title %}Register{% endblock %} 
 
 {% block content %}
 <div class="tall d-flex align-items-center justify-content-center py-4">
 	<main class="form-signin">
 		<form
-			action="{{ url_for('login') }}"
+			action="{{ url_for('register') }}"
 			method="post"
-			class="w-100 max-width-400"
+			class="w-100"
 		>
-			<h1 class="h3 mb-3 fw-normal text-center">Sign in</h1>
+			<h1 class="h3 mb-3 fw-normal text-center">Register</h1>
 
 			<div class="form-floating my-2">
 				<input
@@ -30,24 +30,13 @@
 				/>
 				<label for="floatingPassword">Password</label>
 			</div>
-			<p class="text-body-secondary text-center">
-				No account?
-				<a class="my-2" href="{{ url_for('register') }}"
-					>Register here</a
-				>
-			</p>
 
-			<button class="btn btn-primary w-100 py-1" type="submit">
-				Sign in
+			<button class="btn btn-primary w-100 py-1 mt-3" type="submit">
+				Register
 			</button>
-
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <p class="flash-text">{{ message }}</p>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+			{% if sent %}
+			<p class="sent-text text-center">Successfully sent the data</p>
+			{% endif %}
 			<p class="mt-1 text-body-secondary text-center">© 2023</p>
 		</form>
 	</main>

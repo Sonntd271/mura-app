@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
-    {{ bootstrap.load_css() }}
-    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
-    {% block styles %}
-        
-    {% endblock %}
-</head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{% block title %}{% endblock %}</title>
+		{{ bootstrap.load_css() }}
+		<link
+			href="{{ url_for('static', filename='css/styles.css') }}"
+			rel="stylesheet"
+		/>
+		<link rel="icon" href="{{ url_for('static', filename='assets/favicon.ico') }}">
+		{% block styles %} {% endblock %}
+	</head>
 
-<body>
-    {% block content %}
-        
-    {% endblock %}
-
-    {{ bootstrap.load_js() }}
-    {% block scripts %}
-        
-    {% endblock %}
-</body>
-
+	<body>
+		<nav class="navbar navbar-expand-lg bg-body-tertiary">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="{{ url_for('home') }}">Schedule</a>
+				<div class="navbar-nav">
+                    <a class="nav-link" href="{{ url_for('insert_course') }}">Insert Course</a>
+					<a class="nav-link" href="{{ url_for('home') }}">View Schedule</a>
+				</div>
+			</div>
+		</nav>
+		{% block content %} {% endblock %} {{ bootstrap.load_js() }} {% block
+		scripts %} {% endblock %}
+	</body>
 </html>

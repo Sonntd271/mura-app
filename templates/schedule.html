@@ -1,0 +1,24 @@
+{% extends "base.html" %} 
+
+{% block title %}Schedule{% endblock %} 
+
+{% block content %}
+<div class="tall d-flex align-items-center justify-content-center py-4">
+	<main class="custom-container mx-auto">
+		<h1 class="h3 mb-4 fw-normal text-center">Your Schedule</h1>
+
+		{% if user.courses %}
+            {% for course in user.courses %}
+                <p class="text-center">
+                    {{ course.course_name }} - {{ course.instructor }} - {{ course.time }}
+                </p>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">You haven't registered for any courses yet.</p>
+		{% endif %}
+
+		<a class="text-center" href="{{ url_for('select_courses') }}">See available courses</a>
+        <a class="text-center" href="{{ url_for('logout') }}">Logout</a>
+	</main>
+</div>
+{% endblock %}
